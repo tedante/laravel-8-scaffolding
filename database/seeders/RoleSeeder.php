@@ -23,5 +23,11 @@ class RoleSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
+        DB::table('roles')->insert([
+            'name' => 'admin',
+            'guard_name' => 'web',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
     }
 }
