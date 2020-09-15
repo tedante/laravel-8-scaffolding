@@ -34,7 +34,7 @@ class AuthController extends Controller{
             'user_id' => $response['user']->id,
             'name' => $response['user']->name,
             'email' => $response['user']->email,
-            'role' => $response['user']->role->name ?? null,
+            'role' => $response['role'] ?? null,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($response['token']->token->expires_at)->toDateTimeString(),
             'email_verified_at' => $response['user']->email_verified_at,
@@ -72,6 +72,7 @@ class AuthController extends Controller{
             
             $response = [
                 'user' => $user, 
+                'role' => $user->getRoleNames(), 
                 'token' => $tokenResult 
             ];
 
