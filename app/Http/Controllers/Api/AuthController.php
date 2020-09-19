@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,7 +16,7 @@ use App\Exceptions\UnprocessEntityException;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
-class AuthController extends Controller{
+class AuthController extends Controller {
     public function login(Request $request) {
         $requestBody = $request->json()->all();
         $validation = Validator::make($requestBody, [
@@ -36,10 +36,12 @@ class AuthController extends Controller{
             'email' => $response['user']->email,
             'role' => $response['role'] ?? null,
             'token_type' => 'Bearer',
+            'roles' => $response['roles'] ?? null,
             'expires_at' => Carbon::parse($response['token']->token->expires_at)->toDateTimeString(),
             'email_verified_at' => $response['user']->email_verified_at,
             'login_at' => $response['user']->login_at,
             'access_token' => $response['token']->accessToken,
+            'permissions' => $response['permissions'],
         ], 200);
     }
 
@@ -69,11 +71,14 @@ class AuthController extends Controller{
             
             $user->login_at = Carbon::now();
             $user->save();
+
+            $permissions = $user->roles->first()->permissions;
             
             $response = [
                 'user' => $user, 
-                'role' => $user->getRoleNames(), 
-                'token' => $tokenResult 
+                'roles' => $user->getRoleNames(), 
+                'token' => $tokenResult,
+                'permissions' => $permissions, 
             ];
 
             return $this->handleResponse($response);
