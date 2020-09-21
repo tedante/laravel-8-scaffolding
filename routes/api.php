@@ -22,8 +22,8 @@ Route::prefix('v1')->group(function() {
         Route::post('login', [App\Http\Controllers\Api\AuthController::class, 'login'])->name('login');
         Route::post('register', [App\Http\Controllers\Api\AuthController::class, 'register'])->name('register');
       
-        Route::middleware('auth:api')->group(function() {
-            
+        Route::middleware('auth:api')->group(function() {  
+            Route::get('users', [App\Http\Controllers\Api\UserController::class, 'index'])->name('user.getall');
         });
     });
 
