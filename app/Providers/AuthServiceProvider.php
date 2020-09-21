@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
+use Spatie\Permission\Models\Permission;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -33,5 +34,12 @@ class AuthServiceProvider extends ServiceProvider
         Passport::refreshTokensExpireIn(now()->addDays(30));
     
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));
+
+        $permission = Permission::all();
+        foreach($permission as $item) {
+            $scope[$item->name] = $item->name;
+        }
+        
+        $test = Passport::tokensCan($scope);
     }
 }

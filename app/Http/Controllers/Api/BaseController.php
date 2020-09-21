@@ -20,6 +20,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BaseController extends Controller
 {
+    protected $module;
+
     protected $model;
 
     protected $validation;
@@ -31,6 +33,10 @@ class BaseController extends Controller
      */
     public function index()
     {
+        $auth = $this->checkAuth('.view');
+        
+        if ($auth->status() != 200) return $auth; 
+
         $requestQuery = request()->query();
 
         $validation = Validator::make($requestQuery, [
@@ -114,6 +120,10 @@ class BaseController extends Controller
      */
     public function store(Request $request)
     {
+        $auth = $this->checkAuth('.create');
+        
+        if ($auth->status() != 200) return $auth; 
+
         $requestJson = $request->json()->all();
 
         if (isset($this->validation)) {
@@ -156,6 +166,10 @@ class BaseController extends Controller
      */
     public function show($id)
     {
+        $auth = $this->checkAuth('.view');
+        
+        if ($auth->status() != 200) return $auth; 
+        
         $requestQuery = request()->query();
         
         $model = new $this->model();
@@ -204,6 +218,10 @@ class BaseController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $auth = $this->checkAuth('.udpate');
+        
+        if ($auth->status() != 200) return $auth; 
+        
         $requestJson = $request->json()->all();
 
         if (isset($this->validation)) {
@@ -252,6 +270,10 @@ class BaseController extends Controller
      */
     public function destroy($id)
     {
+        $auth = $this->checkAuth('.delete');
+        
+        if ($auth->status() != 200) return $auth; 
+        
         $model = new $this->model();
 
         $data = $model->find($id);
@@ -313,6 +335,16 @@ class BaseController extends Controller
             return response()->json([
                 'message' => $e->getMessage()
             ], 400);
+        }
+    }
+
+    public function checkAuth($scope) {
+        if (request()->bearerToken() && !request()->user()->tokenCan($this->module.$scope)) {
+            return response()->json([
+                'message' => "Unauthicated, token is not valid or scope is not valid"
+            ], 401);
+        } else {
+            return response()->json(null,200);
         }
     }
 }
