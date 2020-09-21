@@ -64,15 +64,18 @@ class AuthController extends Controller {
                 throw new UnprocessEntityException('Login failed! Proccess has been failed');
             }
             
-            $tokenResult = $user->createToken('Laravel Password Grant Client');
+            $permissions = $user->roles->first()->permissions;
+            $permissions = $permissions->map(function($p){
+                return $p['name'];
+            });
+            
+            $tokenResult = $user->createToken('Laravel Password Grant Client', $permissions->toArray());
             $token = $tokenResult->token;
             
             $token->save();
             
             $user->login_at = Carbon::now();
             $user->save();
-
-            $permissions = $user->roles->first()->permissions;
             
             $response = [
                 'user' => $user, 
