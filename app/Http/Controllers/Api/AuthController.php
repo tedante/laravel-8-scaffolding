@@ -52,7 +52,9 @@ class AuthController extends Controller {
         ];
 
         if(!Auth::attempt($credentials)) {
-            throw new AuthenticationException('Email or password you entered is incorrect!');
+            return response()->json([
+                'message' => 'Email or password you entered is incorrect!'
+            ], 401);
         }
 
         try {
@@ -60,7 +62,9 @@ class AuthController extends Controller {
             $user = User::find($user->id);
             
             if(!$user){
-                throw new UnprocessEntityException('Login failed! Proccess has been failed');
+                return response()->json([
+                    'message' => 'Login failed! Proccess has been failed'
+                ], 401);
             }
             
             $permissions = $user->roles->first()->permissions;
