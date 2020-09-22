@@ -40,8 +40,7 @@ class AuthController extends Controller {
             'expires_at' => Carbon::parse($response['token']->token->expires_at)->toDateTimeString(),
             'email_verified_at' => $response['user']->email_verified_at,
             'login_at' => $response['user']->login_at,
-            'access_token' => $response['token']->accessToken,
-            'permissions' => $response['permissions'],
+            'access_token' => $response['token']->accessToken
         ], 200);
     }
 
@@ -81,7 +80,6 @@ class AuthController extends Controller {
                 'user' => $user, 
                 'roles' => $user->getRoleNames(), 
                 'token' => $tokenResult,
-                'permissions' => $permissions, 
             ];
 
             return $this->handleResponse($response);
