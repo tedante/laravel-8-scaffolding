@@ -24,7 +24,7 @@ Route::middleware('logged')->group(function() {
     Route::get('logout', [\App\Http\Controllers\Admin\AuthController::class, 'logoutProccess'])->name('admin.logout');
     
     Route::prefix('admin')->as('admin.')->group(function(){
-        Route::get('/', 'DashboardController@index')->name('dashboard');
+        Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     });
     
   });
