@@ -4,17 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use App\Http\Controllers\Admin\Services\AuthService;
 use App\Exceptions\UnprocessEntityException;
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 
 class AuthController extends ApiAuthController
 {
-    protected $service;
 
     public function __construct() {
-        $this->service = new AuthService();
+        
     }
 
     public function loginIndex() {
