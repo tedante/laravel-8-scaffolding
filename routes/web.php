@@ -19,3 +19,12 @@ Route::get('/', function () {
 
 Route::get('admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'loginIndex'])->name('admin.login');
 Route::post('admin/login', [\App\Http\Controllers\Admin\AuthController::class, 'loginProccess'])->name('admin.login-proccess');
+
+Route::middleware('logged')->group(function() {
+    Route::get('logout', [\App\Http\Controllers\Admin\AuthController::class, 'logoutProccess'])->name('admin.logout');
+    
+    Route::prefix('admin')->as('admin.')->group(function(){
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+    });
+    
+  });
