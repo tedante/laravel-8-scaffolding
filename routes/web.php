@@ -25,6 +25,11 @@ Route::middleware('logged')->group(function() {
     
     Route::prefix('admin')->as('admin.')->group(function(){
         Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+        Route::prefix('users')->as('users.')->group(function(){
+            Route::get('/', [\App\Http\Controllers\Admin\UserController::class, 'getIndex'])->name('index');
+            Route::get('/detail', [\App\Http\Controllers\Admin\UserController::class, 'getDetail'])->name('detail');
+            Route::get('/edit', [\App\Http\Controllers\Admin\UserController::class, 'getEdit'])->name('edit');
+        });
     });
     
   });
