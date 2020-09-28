@@ -79,6 +79,19 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Is Active</label>
+                    <div class="col-sm-10">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="active" name="status" value="true" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="active">Active</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="inactive" name="status" value="false" class="custom-control-input">
+                        <label class="custom-control-label" for="inactive">Inactive</label>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-sm-12 text-right">
                         <a class="btn btn-warning" href="{{ route('admin.users.index') }}">Cancel</a>
                         <button class="btn btn-info" type="submit">Create</button>
