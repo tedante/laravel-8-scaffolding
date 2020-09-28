@@ -27,6 +27,10 @@ class UserController extends Controller
         return view('admin.pages.users.index', $array);
     }
 
+    public function getCreate() {
+        return view('admin.pages.users.create');
+    }
+
     public function getEdit($id) {
         $data = $this->model::all();
         

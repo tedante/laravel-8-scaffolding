@@ -19,8 +19,6 @@
     </div>
   </div>
   <div class="card-body">
-    
-    <hr />
     <div class="table-responsive">
       <table class="table table-hover" id="datatable" width="100%">
         <thead>
