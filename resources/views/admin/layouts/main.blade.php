@@ -54,7 +54,15 @@
       <!-- Main Content -->
       @include('admin.layouts.header')
       
-      @yield('content')
+    <!-- End of Topbar -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+
+        @yield('content')
+
+      </div>
+      <!-- /.container-fluid -->
       <!-- End of Main Content -->
 
       <!-- Footer -->
