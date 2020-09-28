@@ -2,7 +2,7 @@
 @extends('admin.layouts.main')
 
 @section('content')
-        <!-- Page Heading -->
+<!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Users</h1>
 <hr />
 {{-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> --}}
@@ -12,7 +12,7 @@
   <div class="card-header">
     <div class="d-flex justify-content-between">
       <div class="p-2">
-        <a class="btn btn-info" href="#" title="Add New">
+        <a class="btn btn-info" href="{{ route('admin.users.create') }}" title="Add New">
           Add New
         </a>
       </div>

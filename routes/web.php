@@ -29,6 +29,9 @@ Route::middleware('logged')->group(function() {
             Route::get('/', [\App\Http\Controllers\Admin\UserController::class, 'getIndex'])->name('index');
             Route::get('/detail', [\App\Http\Controllers\Admin\UserController::class, 'getDetail'])->name('detail');
             Route::get('/edit', [\App\Http\Controllers\Admin\UserController::class, 'getEdit'])->name('edit');
+            Route::get('/create', [\App\Http\Controllers\Admin\UserController::class, 'getCreate'])->name('create');
+            Route::post('/', [\App\Http\Controllers\Admin\UserController::class, 'postStore'])->name('store');
+            Route::put('/{id}', [\App\Http\Controllers\Admin\UserController::class, 'putUpdate'])->name('update');
         });
     });
     
