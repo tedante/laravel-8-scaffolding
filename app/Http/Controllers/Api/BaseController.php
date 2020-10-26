@@ -33,7 +33,7 @@ class BaseController extends Controller
      */
     public function index()
     {
-        $auth = $this->checkAuth('.view');
+        $auth = $this->checkAuth('.read');
         
         if ($auth->status() != 200) return $auth; 
 
@@ -166,7 +166,7 @@ class BaseController extends Controller
      */
     public function show($id)
     {
-        $auth = $this->checkAuth('.view');
+        $auth = $this->checkAuth('.read');
         
         if ($auth->status() != 200) return $auth; 
         

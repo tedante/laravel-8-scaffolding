@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Schema;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -35,11 +36,14 @@ class AuthServiceProvider extends ServiceProvider
     
         Passport::personalAccessTokensExpireIn(now()->addMonths(6));
 
-        $permission = Permission::all();
-        foreach($permission as $item) {
-            $scope[$item->name] = $item->name;
+        if ( Schema::hasTable('permissions') ) {
+            $permission = Permission::all();
+            
+            foreach($permission as $item) {
+                $scope[$item->name] = $item->name;
+            }
+            
+            $test = Passport::tokensCan($scope ?? []);
         }
-        
-        $test = Passport::tokensCan($scope);
     }
 }
