@@ -17,6 +17,8 @@ use Illuminate\Database\QueryException;
 use App\Exports\GeneralExport;
 use App\Imports\GeneralImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Resources\BaseResource;
+use Hashids\Hashids;
 
 class BaseController extends Controller
 {
@@ -26,6 +28,11 @@ class BaseController extends Controller
 
     protected $validation;
 
+    protected $hashids;
+
+    public function __construct() {
+        $this->hashids = new Hashids(config('app.hash-code'), config('app.hash-length')); // all lowercase
+    }
     /**
      * Display a listing of the resource.
      *
@@ -99,7 +106,7 @@ class BaseController extends Controller
         
         $data = $data->paginate($limit);
     
-        return response()->json($data);
+        return BaseResource::collection($data);
     }
 
     /**
@@ -188,7 +195,7 @@ class BaseController extends Controller
             }
         }
         
-        $data = $model::with($with)->find($id);
+        $data = $model::with($with)->find($this->hashids->decode($id));
 
         if(!$data) {
             return response()->json([
@@ -196,7 +203,7 @@ class BaseController extends Controller
             ], 404);
         }
         
-        return response()->json($data);
+        return BaseResource::collection($data);
     }
 
     /**
@@ -235,7 +242,7 @@ class BaseController extends Controller
 
             $model = new $this->model();
 
-            $data = $model->find($id);
+            $data = $model->find($this->hashids->decode($id));
 
             if(!$data) {
                 return response()->json([
@@ -276,7 +283,7 @@ class BaseController extends Controller
         
         $model = new $this->model();
 
-        $data = $model->find($id);
+        $data = $model->find($this->hashids->decode($id));
 
         if(!$data) {
             return response()->json([
