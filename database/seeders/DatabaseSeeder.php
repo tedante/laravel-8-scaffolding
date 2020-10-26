@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ModuleSeeder::class,
             MenuSeeder::class,
             PermissionSeeder::class,
+            RoleHasPermissionSeeder::class,
         ]);
         // User::factory(10)->create();
     }
