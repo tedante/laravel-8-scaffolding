@@ -230,4 +230,7 @@ return [
 
     ],
 
+    'hash-code' => 'My Project Laravel',
+    'hash-length' => 20,
+
 ];

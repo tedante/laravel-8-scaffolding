@@ -23,7 +23,8 @@ Route::prefix('v1')->group(function() {
         Route::post('register', [App\Http\Controllers\Api\AuthController::class, 'register'])->name('register');
       
         Route::middleware('auth:api')->group(function() {  
-            Route::get('users', [App\Http\Controllers\Api\UserController::class, 'index'])->name('user.getall');
+            Route::get('users', [App\Http\Controllers\Api\UserController::class, 'index'])->name('user.get');
+            Route::get('users/{id}', [App\Http\Controllers\Api\UserController::class, 'show'])->name('user.getOne');
         });
     });
 
