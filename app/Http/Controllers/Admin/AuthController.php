@@ -34,7 +34,7 @@ class AuthController extends ApiAuthController
                 'email' => $request->email,
                 'access_token' => $body->access_token,
                 'email_verified_at' => $body->email_verified_at,
-                'role' => $body->role,
+                'role' => $body->roles,
                 'expires_at' => $body->expires_at
             ]);
             
