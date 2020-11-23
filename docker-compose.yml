@@ -6,8 +6,8 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.16.0.0/16
-          gateway: 172.16.238.1
+        - subnet: 171.16.0.0/16
+          gateway: 171.16.238.1
 
 volumes: 
   dbvolume:
@@ -26,7 +26,7 @@ services:
       - mysql
     networks:
       laravel:
-        ipv4_address: 172.16.0.1
+        ipv4_address: 171.16.0.1
 
   mysql:
     image: mysql:5.7.29
@@ -46,7 +46,7 @@ services:
       SERVICE_NAME: mysql
     networks:
       laravel:
-        ipv4_address: 172.16.0.2
+        ipv4_address: 171.16.0.2
 
   php:
     build:
@@ -59,7 +59,7 @@ services:
       - "8903:9000"
     networks:
       laravel:
-        ipv4_address: 172.16.0.3
+        ipv4_address: 171.16.0.3
 
   # npm:
   #   image: node:13.7
